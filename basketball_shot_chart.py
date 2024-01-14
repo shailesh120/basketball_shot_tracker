@@ -74,6 +74,9 @@ def plot_shots_on_court(shots, grouped_shots, date_today):
             # Display the fraction at the correct location on the PNG image
             ax.text(x, y, f'{fraction}', ha='center', va='center', fontsize=8, color='black', transform=ax.transData)
 
+    # Add the date at the top of the PNG
+    ax.text(47, 55, date_today, ha='center', va='center', fontsize=24, color='black') 
+
     # Set axis limits
     ax.set_xlim(0, 94)
     ax.set_ylim(0, 50)
@@ -96,7 +99,7 @@ def plot_shots_on_court(shots, grouped_shots, date_today):
 
 # Example usage:
 
-current_date = datetime.now().strftime('%y-%m-%d')
+current_date = datetime.now().strftime('%m-%d-%y')
 
 # Retrieve shot data from the 'shots' table
 conn = sqlite3.connect('basketball_tracker.db')
