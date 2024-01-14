@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle, Arc, Circle
 import sqlite3
 from datetime import datetime
+import shutil
 
 # Function to get coordinates based on the shot location
 def get_coordinates_from_location(location):
@@ -84,8 +85,11 @@ def plot_shots_on_court(shots, grouped_shots, date_today):
     #plt.gca().invert_yaxis()
 
     # Save the plot as an image file
-    save_path = 'U:\shot_charts\Shots_made_on_{}.png'.format(date_today)
-    plt.savefig(save_path)
+    save_path_1 = 'U:\shot_charts\Shots_made_on_{}.png'.format(date_today)
+    plt.savefig(save_path_1)
+
+    save_path_2 = 'Shots_made_on_{}.png'.format(date_today)
+    shutil.copy(save_path_1, save_path_2)
 
     # Display the plot
     plt.show()
