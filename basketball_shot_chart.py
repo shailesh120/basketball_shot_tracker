@@ -10,10 +10,10 @@ def get_coordinates_from_location(location):
     mapping = {
         'center': (47, 39),
         'left corner': (80, 7),
-        'left wing': (70, 31),
+        'left wing': (71, 28),
         'right corner': (14, 7),
-        'right wing': (24, 31),
-        'free throw': (47, 27)
+        'right wing': (23, 28),
+        'free throw': (47, 26)
         # Add more locations as needed
     }
     return mapping.get(location, (47, 10))  # Default to (0, 0) if location not found
@@ -81,10 +81,11 @@ def plot_shots_on_court(shots, grouped_shots, date_today):
     ax.set_aspect('equal', adjustable='box')
 
     # Invert y-axis to flip the court horizontally
-    plt.gca().invert_yaxis()
+    #plt.gca().invert_yaxis()
 
     # Save the plot as an image file
-    plt.savefig(f'Shots_made_on_{date_today}.png')
+    save_path = 'U:\shot_charts\Shots_made_on_{}.png'.format(date_today)
+    plt.savefig(save_path)
 
     # Display the plot
     plt.show()
