@@ -119,12 +119,12 @@ if date_has_changed(current_date):
 location = input("Enter the location: ")
 
 if location == 'free throw':
-    num_makes = int(input("Enter the number of makes in a row: "))
+    num_makes = int(input("How many makes in a row? \n"))
     num_misses = 0
 else:
     # Get user input for the number of makes and misses
-    num_makes = int(input("Enter the number of makes: "))
-    num_misses = int(input("Enter the number of misses: "))
+    num_makes = int(input("How many makes? \n:"))
+    num_misses = int(input("How many misses? \n:"))
 
 # Insert makes into the database
 insert_shot(location, 'made', datetime.now().strftime('%Y-%m-%d'), num_makes)
