@@ -55,10 +55,10 @@ def plot_shots_on_court(shots, grouped_shots, date_today):
         cursor = conn.cursor()
 
         # Retrieve the counts of made and missed shots
-        cursor.execute('SELECT COUNT(*) FROM shots WHERE location=? AND result="made"', (location,))
+        cursor.execute('SELECT COUNT(*) FROM shots WHERE location=? AND result="made" AND date =?', (location, date_today))
         made_count = cursor.fetchone()[0]
 
-        cursor.execute('SELECT COUNT(*) FROM shots WHERE location=? AND result="missed"', (location,))
+        cursor.execute('SELECT COUNT(*) FROM shots WHERE location=? AND result="missed" AND date =?', (location, date_today))
         missed_count = cursor.fetchone()[0]
 
         conn.close()
@@ -73,9 +73,7 @@ def plot_shots_on_court(shots, grouped_shots, date_today):
         else:
             # Display the fraction at the correct location on the PNG image
             ax.text(x, y, f'{fraction}', ha='center', va='center', fontsize=8, color='black', transform=ax.transData)
-
-    # Add the date at the top of the PNG
-    ax.text(47, 55, date_today, ha='center', va='center', fontsize=24, color='black') 
+ 
 
     # Set axis limits
     ax.set_xlim(0, 94)
@@ -85,13 +83,18 @@ def plot_shots_on_court(shots, grouped_shots, date_today):
     ax.set_aspect('equal', adjustable='box')
 
     # Invert y-axis to flip the court horizontally
-    #plt.gca().invert_yaxis()
+    plt.gca().invert_yaxis()
+
+    format_date = datetime.now().strftime('%m-%d-%y')
+
+    # Add the date at the top of the PNG
+    ax.text(47, -5, format_date, ha='center', va='center', fontsize=24, color='black')
 
     # Save the plot as an image file
-    save_path_1 = 'U:\shot_charts\Shots_made_on_{}.png'.format(date_today)
+    save_path_1 = 'U:\shot_charts\Shots_made_on_{}.png'.format(format_date)
     plt.savefig(save_path_1)
 
-    save_path_2 = 'Shots_made_on_{}.png'.format(date_today)
+    save_path_2 = 'Shots_made_on_{}.png'.format(format_date)
     shutil.copy(save_path_1, save_path_2)
 
     # Display the plot
@@ -99,7 +102,7 @@ def plot_shots_on_court(shots, grouped_shots, date_today):
 
 # Example usage:
 
-current_date = datetime.now().strftime('%m-%d-%y')
+current_date = datetime.now().strftime('%Y-%m-%d')
 
 # Retrieve shot data from the 'shots' table
 conn = sqlite3.connect('basketball_tracker.db')

@@ -97,6 +97,7 @@ def insert_grouped_results_into_db(grouped_shots):
     conn.commit()
     conn.close()
 
+
 # Function to display grouped results in a table
 def display_grouped_results(grouped_shots):
     table = PrettyTable(['ID', 'Location', 'Date', 'Result', 'Count'])
@@ -106,14 +107,15 @@ def display_grouped_results(grouped_shots):
 
     print(table)
 
+
 #----------------------------------------------------------------------------------------------------------------#
 
 # main
 
 current_date = datetime.now().strftime('%Y-%m-%d')
 
-if date_has_changed(current_date):
-    create_tables()
+#if date_has_changed(current_date):
+create_tables()
 
 # Get user input for location
 location = input("Enter the location: ")
@@ -122,9 +124,10 @@ if location == 'free throw':
     num_makes = int(input("How many makes in a row? \n"))
     num_misses = 0
 else:
-    # Get user input for the number of makes and misses
-    num_makes = int(input("How many makes? \n:"))
-    num_misses = int(input("How many misses? \n:"))
+    # Get user input for the number of makes and total shots
+    total = 10
+    num_makes = int(input("How many makes? \n"))
+    num_misses = total - num_makes
 
 # Insert makes into the database
 insert_shot(location, 'made', datetime.now().strftime('%Y-%m-%d'), num_makes)
